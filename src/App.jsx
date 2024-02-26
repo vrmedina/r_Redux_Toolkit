@@ -1,16 +1,41 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import {
+  decrement,
+  increment,
+  incrementBy,
+} from './store/slices/counter';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { counter } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1>El contador esta en: {counter}</h1>
       <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button
+          onClick={() => {
+            dispatch(decrement());
+          }}
+        >
+          -
         </button>
+        <button
+          onClick={() => {
+            dispatch(increment());
+          }}
+        >
+          +
+        </button>
+        <button
+          onClick={() => {
+            dispatch(incrementBy(2));
+          }}
+        >
+          Incrementar En 2
+        </button>
+        <input type='text' name='incrementBy' placeholder='5' />
       </div>
     </>
   );
